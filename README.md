@@ -87,6 +87,8 @@ Sekarang, API dan Dashboard berjalan pada alamat `http://localhost:8000`.
 
 ## Cara Menggunakan Web Dashboard
 
+![alt text](image.png)
+
 Meskipun ini adalah proyek inti API Boilerplate, saya menyertakan "Dashboard Client" menggunakan Laravel Blade dan Bootstrap 5. Tampilan ini 100% menggunakan Javascript (Fetch API) untuk melakukan permintaan data ke endpoint API lokal, seolah-olah beroperasi sebagai aplikasi pihak ketiga/berbeda.
 
 1. Buka browser pada alamat: `http://localhost:8000`
