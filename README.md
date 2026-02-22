@@ -16,15 +16,15 @@ Project ini dibuat ramah untuk pemula namun secara arsitektur sangat direkomenda
 
 Boily sudah dilengkapi dengan 9 Modul Bisnis Utama yang berjalan penuh:
 
-1. **Authentication & RBAC:** Sistem Login berbasis Token (Sanctum) dengan Role-Based Access Control (Super Admin, Admin, Manager, User).
-2. **Client Management:** Kelola data Klien atau Perusahaan lengkap dengan validasi RESTful.
-3. **Project Management:** Kelola Proyek, Status, Anggaran (Budget), dan alokasi member tim.
-4. **Task Board:** Kelola Tugas (Tasks), Status (Pending, In Progress, dll), Prioritas, dan penugasan (Assignee).
-5. **Team Management:** Buat Tim dan gabungkan berbagai staf ke dalam sebuah departemen.
-6. **Invoicer (Penagihan):** Buat tagihan langsung dari proyek, atur Status (Draft, Sent, Paid), dan kalkulasi pajak otomatis.
-7. **Payments (Pembayaran):** Catat pembayaran masuk dari Invoice dan fungsionalitas pengembalian dana (Refund).
-8. **Time Entries (Timesheet):** Melacak jam kerja per Tugas yang nantinya bisa dikalkulasikan menjadi Billable Hours.
-9. **Reports & Analytics:** Dashboard analitik (Cash flow, Project Profitability) yang dieksekusi cepat menggunakan skema *Tiered Caching*.
+1. 🔐 **Authentication & RBAC:** Sistem Login berbasis Token (Sanctum) dengan Role-Based Access Control (Super Admin, Admin, Manager, User).
+2. 🏢 **Client Management:** Kelola data Klien atau Perusahaan lengkap dengan validasi RESTful.
+3. 🚀 **Project Management:** Kelola Proyek, Status, Anggaran (Budget), dan alokasi member tim.
+4. ✅ **Task Board:** Kelola Tugas (Tasks), Status (Pending, In Progress, dll), Prioritas, dan penugasan (Assignee).
+5. 👥 **Team Management:** Buat Tim dan gabungkan berbagai staf ke dalam sebuah departemen.
+6. 🧾 **Invoicer (Penagihan):** Buat tagihan langsung dari proyek, atur Status (Draft, Sent, Paid), dan kalkulasi pajak otomatis.
+7. 💳 **Payments (Pembayaran):** Catat pembayaran masuk dari Invoice dan fungsionalitas pengembalian dana (Refund).
+8. ⏱️ **Time Entries (Timesheet):** Melacak jam kerja per Tugas yang nantinya bisa dikalkulasikan menjadi Billable Hours.
+9. 📊 **Reports & Analytics:** Dashboard analitik (Cash flow, Project Profitability) yang dieksekusi cepat menggunakan skema *Tiered Caching*.
 
 ---
 
@@ -117,13 +117,13 @@ Saya sudah menyiapkan direktori dan file **`api.http`** yang terletak di partisi
 
 Boily Boilerplate dikonfigurasi menahan standar korporasi secara bawaan. Beberapa di antaranya:
 
-- **100% Prepared Statements (MySQL):** Kode dilindungi paksa terhadap vektor serangan SQL Injection tingkat fatal.
-- **Strict Rate Limiting (API Throttling):**
+- 🛡️ **100% Prepared Statements (MySQL):** Kode dilindungi paksa terhadap vektor serangan SQL Injection tingkat fatal.
+- 🚦 **Strict Rate Limiting (API Throttling):**
   - Autentikasi/Login System: Dibatasi maksimal 5 requests per menit. Mencegah vektor peretasan berbasis *Brute-Force*.
   - Global Application Scope: Batas 60 hits per menit untuk melimitasi resiko atas serangan Spam dan *DDoS BOT*.
-- **OWASP Secure HTTP Headers:** Standar filter Security Headers OWASP yang termodifikasi untuk mengeliminasi Clickjacking, mencegah kerentanan Mime Sniffing, dan injeksi *Cross-Site Scripting* (XSS) murni melalui Header Response.
-- **Query Optimization dan Eager Loading:** Mengatasi anomali redundansi *N+1 Query Problem*. Mekanisme di sistem Repository secara dinamis memuat rantai relasi Database dalam hanya 1 kueri agregat.
-- **Tiered Hybrid Caching System:** Mengimplementasikan penyimpanan sesi di RAM Memory Engine (spt Redis) untuk menangani Job rate-limiting, sedangkan Master Data menggunakan skema *File Driver Storage* agar operasional server RAM tetap ringan dan tidak memberatkan *System Resource Overhead*.
+- 🔒 **OWASP Secure HTTP Headers:** Standar filter Security Headers OWASP yang termodifikasi untuk mengeliminasi Clickjacking, mencegah kerentanan Mime Sniffing, dan injeksi *Cross-Site Scripting* (XSS) murni melalui Header Response.
+- ⚡ **Query Optimization dan Eager Loading:** Mengatasi anomali redundansi *N+1 Query Problem*. Mekanisme di sistem Repository secara dinamis memuat rantai relasi Database dalam hanya 1 kueri agregat.
+- 🚀 **Tiered Hybrid Caching System:** Mengimplementasikan penyimpanan sesi di RAM Memory Engine (spt Redis) untuk menangani Job rate-limiting, sedangkan Master Data menggunakan skema *File Driver Storage* agar operasional server RAM tetap ringan dan tidak memberatkan *System Resource Overhead*.
 
 ---
 
