@@ -1,0 +1,325 @@
+@baseUrl = http://localhost:8000/api/v1
+@token = {{login.response.body.data.token}}
+
+# =========================================================================
+# 1. AUTHENTICATION
+# =========================================================================
+
+### Login (Run ini dulu untuk mendapatkan token otomatis)
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "admin@example.com",
+    "password": "admin123"
+}
+
+### Register User
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "New Manager",
+    "email": "manager@example.com",
+    "password": "Password123",
+    "password_confirmation": "Password123",
+    "phone": "08123456789"
+}
+
+### Get Profile
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Refresh Token
+POST {{baseUrl}}/auth/refresh
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Logout
+POST {{baseUrl}}/auth/logout
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+# =========================================================================
+# 2. CLIENTS
+# =========================================================================
+
+### List Clients
+# @name listClients
+GET {{baseUrl}}/clients?per_page=15&search=tech
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create Client
+# @name createClient
+POST {{baseUrl}}/clients
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Tech Corp",
+    "email": "contact2@techcorp.com",
+    "company": "Tech Corp Ltd",
+    "phone": "08123456789",
+    "is_active": true
+}
+
+### @clientId = {{createClient.response.body.data.id}}
+
+### Show Client
+GET {{baseUrl}}/clients/1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Update Client
+PUT {{baseUrl}}/clients/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Tech Corporation (Updated)",
+    "is_active": false
+}
+
+### Delete Client
+DELETE {{baseUrl}}/clients/1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+# =========================================================================
+# 3. PROJECTS
+# =========================================================================
+
+### List Projects
+GET {{baseUrl}}/projects
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create Project
+# @name createProject
+POST {{baseUrl}}/projects
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "client_id": 1,
+    "owner_id": 1,
+    "name": "Website Revamp",
+    "description": "Redesign corporate website",
+    "budget": 50000.00,
+    "start_date": "2024-01-01",
+    "end_date": "2024-06-01"
+}
+
+### @projectId = {{createProject.response.body.data.id}}
+
+### Assign Member to Project
+POST {{baseUrl}}/projects/1/assign-member
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "user_id": 1
+}
+
+
+# =========================================================================
+# 4. TASKS
+# =========================================================================
+
+### List Tasks
+GET {{baseUrl}}/tasks
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create Task
+# @name createTask
+POST {{baseUrl}}/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "project_id": 1,
+    "title": "Design Homepage",
+    "description": "Figma mockup for the new homepage",
+    "estimated_hours": 20
+}
+
+### @taskId = {{createTask.response.body.data.id}}
+
+### Update Task Status
+PATCH {{baseUrl}}/tasks/1/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "status": "in_progress"
+}
+
+### Assign Task
+POST {{baseUrl}}/tasks/1/assign
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "user_id": 1
+}
+
+
+# =========================================================================
+# 5. TEAMS
+# =========================================================================
+
+### List Teams
+GET {{baseUrl}}/teams
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create Team
+POST {{baseUrl}}/teams
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Backend Developers",
+    "description": "API Team",
+    "owner_id": 1
+}
+
+### Add Member to Team
+POST {{baseUrl}}/teams/1/members
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "user_id": 1
+}
+
+
+# =========================================================================
+# 6. INVOICES
+# =========================================================================
+
+### Auto-Generate Invoice from Project
+POST {{baseUrl}}/invoices/generate/1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### List Invoices
+GET {{baseUrl}}/invoices
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Update Invoice
+PUT {{baseUrl}}/invoices/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "amount": 50000,
+    "tax": 5000,
+    "total": 55000,
+    "status": "sent",
+    "due_date": "2024-07-01"
+}
+
+### Mark Invoice as Paid
+POST {{baseUrl}}/invoices/1/mark-paid
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+# =========================================================================
+# 7. PAYMENTS
+# =========================================================================
+
+### Record Payment
+POST {{baseUrl}}/payments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "invoice_id": 1,
+    "amount": 55000,
+    "method": "Bank Transfer",
+    "reference": "TRX-998877",
+    "paid_at": "2024-06-15"
+}
+
+### Refund Payment
+POST {{baseUrl}}/payments/1/refund
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "reason": "Client cancelled project midway"
+}
+
+
+# =========================================================================
+# 8. TIME ENTRIES
+# =========================================================================
+
+### Create Time Entry
+POST {{baseUrl}}/time-entries
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "task_id": 1,
+    "user_id": 1,
+    "description": "Working on header design",
+    "hours": 4.5,
+    "is_billable": true,
+    "hourly_rate": 50.00,
+    "date": "2024-05-20"
+}
+
+### GET Weekly Report
+GET {{baseUrl}}/time-entries/report/weekly?user_id=1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+# =========================================================================
+# 9. REPORTS & ANALYTICS
+# =========================================================================
+
+### Dashboard Summary
+GET {{baseUrl}}/reports/dashboard
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Project Profitability
+GET {{baseUrl}}/reports/project-profitability
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Team Productivity
+GET {{baseUrl}}/reports/team-productivity
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Revenue Cash Flow
+GET {{baseUrl}}/reports/cash-flow
+Authorization: Bearer {{token}}
+Accept: application/json
